@@ -1,5 +1,10 @@
 # Quick Guide: Testing Zamboni with NHL Legacy on RPCS3
 
+## Original EA auth server
+Name:    gosredirector.ea.com
+Address:  159.153.51.18
+PORT: 42127
+
 ## Server Configuration
 
 Your Zamboni server is now configured to use `127.0.0.1` for local testing. 
@@ -20,7 +25,7 @@ Since you're using WSL2, you need to redirect EA domains to the WSL2 IP address,
 In RPCS3 Network Configuration:
 - Set IP/Hosts switches to:
 ```
-gosredirector.ea.com=123.1.1.123:42100
+gosredirector.ea.com=127.0.0.1
 ```
 
 **Option B: Using Windows hosts file**
@@ -39,7 +44,7 @@ gosredirector.ea.com=123.1.1.123:42100
 
 **Verify connectivity from Windows** (run in PowerShell as Administrator):
 ```powershell
-Test-NetConnection -ComputerName 123.1.1.123 -Port 42100
+Test-NetConnection -ComputerName 123.1.1.123 -Port 42127
 Test-NetConnection -ComputerName 123.1.1.123 -Port 13337
 ```
 Both should show "TcpTestSucceeded : True"
@@ -48,7 +53,7 @@ Both should show "TcpTestSucceeded : True"
 
 Some RPCS3 builds allow DNS redirection in settings:
 1. Go to RPCS3 → Configuration → Network
-2. Set custom DNS or redirect EA domains to `127.0.0.1`
+2. Set IP/Hosts switches to gosredirector.ea.com=127.0.0.1
 
 ## Testing Steps
 
@@ -62,7 +67,7 @@ Some RPCS3 builds allow DNS redirection in settings:
 3. **Navigate to online modes** in the game (try to connect to EA servers)
 
 4. **Watch the Zamboni console** - You should see:
-   - Connection attempts on port 42100 (Redirector)
+   - Connection attempts on port 42127 (Redirector)
    - Then connections on port 13337 (Core Server)
    - PreAuth requests
    - Authentication attempts
